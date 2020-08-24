@@ -23,7 +23,7 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet publish
         run: |
-          & .\Create-Release.ps1
+          & ./Create-Release.ps1
         shell: pwsh
 
       # Run dotnet test
