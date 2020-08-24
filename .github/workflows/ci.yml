@@ -23,11 +23,8 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet publish
         run: |
-          & .\Create-Release.ps1
-
-      # Run dotnet test
-      - name: dotnet test
-        run: dotnet test --no-build --configuration Release
+          & ./Create-Release.ps1
+        shell: pwsh
 
       - name: Artifacts
         uses: actions/upload-artifact@v2
