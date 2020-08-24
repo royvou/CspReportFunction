@@ -1,0 +1,36 @@
+name: Build .NET core App
+
+on:
+  push:
+    tags:
+    - '*.*.*'
+env:
+  DOTNET_VERSION: "3.1.201"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@master
+
+      # Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # Run dotnet build and publish
+      - name: dotnet publish
+        run: |
+          & .\Create-Release.ps1
+
+      # Run dotnet test
+      - name: dotnet test
+        run: dotnet test --no-build --configuration Release
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: release/**/*
