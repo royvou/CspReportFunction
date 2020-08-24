@@ -2,7 +2,6 @@
 
 This service implements an endpoint to store CspReports ([Mozilla Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) in Azure Application Insights on an self managed Environment.
 
-
 ## Technologies
 This is build using the following technologies/Stack
 
@@ -18,7 +17,8 @@ Deployment on your own environment is easy.
 Execute the following script to provision your environment
 
 ```pwsh
-& .\arm\.\deploy.ps1 -prefix <<Insert Prefix>>
+$prefix = ""
+& .\arm\.\deploy.ps1 -prefix $prefix
 ```
 
 Deploy the application zip with the Azure CLI (Or with CI/CD)
