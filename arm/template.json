@@ -36,7 +36,7 @@
         },
         "linuxFxVersion": {
             "type": "string",
-            "defaultValue": "dotnet|3.1"
+            "defaultValue": "dotnet|6.0"
         },
         "hostingPlanSkuTier": {
             "type": "string",
@@ -121,7 +121,7 @@
                     "appSettings": [
                         {
                             "name": "FUNCTIONS_EXTENSION_VERSION",
-                            "value": "~3"
+                            "value": "~4"
                         },
                         {
                             "name": "FUNCTIONS_WORKER_RUNTIME",
@@ -129,7 +129,7 @@
                         },
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                            "value": "[reference(concat('microsoft.insights/components/',parameters('applicationInsightsName')), '2015-05-01').ConnectionString]"
+                            "value": "[reference(concat('microsoft.insights/components/',parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
                         },
                         {
                             "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -143,246 +143,6 @@
                     "linuxFxVersion": "[parameters('linuxFxVersion')]"
                 },
                 "clientAffinityEnabled": false
-            }
-        },
-
-        //Example Dashboard
-         {
-            "type": "Microsoft.Portal/dashboards",
-            "apiVersion": "2019-01-01-preview",
-            "name": "[parameters('dashboards_ccce2250_b550_4f34_a5b8_98c70527e87c_name')]",
-            "location": "westeurope",
-            "tags": {
-                "hidden-title": "rv-dev-cspreport-aidb"
-            },
-            "properties": {
-                "lenses": {
-                    "0": {
-                        "order": 0,
-                        "parts": {
-                            "0": {
-                                "position": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "rowSpan": 4,
-                                    "colSpan": 5
-                                },
-                                "metadata": {
-                                    "inputs": [
-                                        {
-                                            "name": "ComponentId",
-                                            "value": {
-                                                "SubscriptionId": "2a5b3cb5-78b5-4d81-97eb-66e5b054c308",
-                                                "ResourceGroup": "rv-dev-cspreport",
-                                                "Name": "rv-dev-cspreport-ai",
-                                                "ResourceId": "[variables('applicationInsightsId')]"
-                                            }
-                                        },
-                                        {
-                                            "name": "Query",
-                                            "value": "customEvents \n| summarize itemCount=sum(itemCount) by tostring(parse_url(tostring( customDimensions.DocumentUrl))[\"Host\"])\n| limit 10\n"
-                                        },
-                                        {
-                                            "name": "TimeRange",
-                                            "value": "P1D"
-                                        },
-                                        {
-                                            "name": "Version",
-                                            "value": "1.0"
-                                        },
-                                        {
-                                            "name": "PartId",
-                                            "value": "37963a1c-5a5c-4873-ab14-9997bb160bde"
-                                        },
-                                        {
-                                            "name": "PartTitle",
-                                            "value": "Analytics"
-                                        },
-                                        {
-                                            "name": "PartSubTitle",
-                                            "value": "rv-dev-cspreport-ai"
-                                        },
-                                        {
-                                            "name": "resourceTypeMode",
-                                            "value": "components"
-                                        },
-                                        {
-                                            "name": "ControlType",
-                                            "value": "AnalyticsGrid"
-                                        },
-                                        {
-                                            "name": "Dimensions",
-                                            "isOptional": true
-                                        },
-                                        {
-                                            "name": "DashboardId",
-                                            "isOptional": true
-                                        },
-                                        {
-                                            "name": "SpecificChart",
-                                            "isOptional": true
-                                        }
-                                    ],
-                                    "type": "Extension/AppInsightsExtension/PartType/AnalyticsPart",
-                                    "settings": {},
-                                    "asset": {}
-                                }
-                            },
-                            "1": {
-                                "position": {
-                                    "x": 5,
-                                    "y": 0,
-                                    "rowSpan": 4,
-                                    "colSpan": 6
-                                },
-                                "metadata": {
-                                    "inputs": [
-                                        {
-                                            "name": "ComponentId",
-                                            "value": {
-                                                "SubscriptionId": "2a5b3cb5-78b5-4d81-97eb-66e5b054c308",
-                                                "ResourceGroup": "rv-dev-cspreport",
-                                                "Name": "rv-dev-cspreport-ai",
-                                                "ResourceId": "[variables('applicationInsightsId')]"
-                                            }
-                                        },
-                                        {
-                                            "name": "Query",
-                                            "value": "customEvents\n| summarize itemCount=sum(itemCount) by bin(timestamp,1d)\n| render columnchart \n"
-                                        },
-                                        {
-                                            "name": "TimeRange",
-                                            "value": "P7D"
-                                        },
-                                        {
-                                            "name": "Dimensions",
-                                            "value": {
-                                                "xAxis": {
-                                                    "name": "timestamp",
-                                                    "type": "datetime"
-                                                },
-                                                "yAxis": [
-                                                    {
-                                                        "name": "itemCount",
-                                                        "type": "long"
-                                                    }
-                                                ],
-                                                "splitBy": [],
-                                                "aggregation": "Sum"
-                                            }
-                                        },
-                                        {
-                                            "name": "Version",
-                                            "value": "1.0"
-                                        },
-                                        {
-                                            "name": "PartId",
-                                            "value": "119ee1b3-92f0-46bc-8032-fb73415b9001"
-                                        },
-                                        {
-                                            "name": "PartTitle",
-                                            "value": "Analytics"
-                                        },
-                                        {
-                                            "name": "PartSubTitle",
-                                            "value": "rv-dev-cspreport-ai"
-                                        },
-                                        {
-                                            "name": "resourceTypeMode",
-                                            "value": "components"
-                                        },
-                                        {
-                                            "name": "ControlType",
-                                            "value": "AnalyticsChart"
-                                        },
-                                        {
-                                            "name": "SpecificChart",
-                                            "value": "Bar"
-                                        },
-                                        {
-                                            "name": "DashboardId",
-                                            "isOptional": true
-                                        }
-                                    ],
-                                    "type": "Extension/AppInsightsExtension/PartType/AnalyticsPart",
-                                    "settings": {},
-                                    "asset": {}
-                                }
-                            },
-                            "2": {
-                                "position": {
-                                    "x": 0,
-                                    "y": 4,
-                                    "rowSpan": 4,
-                                    "colSpan": 5
-                                },
-                                "metadata": {
-                                    "inputs": [
-                                        {
-                                            "name": "ComponentId",
-                                            "value": {
-                                                "SubscriptionId": "2a5b3cb5-78b5-4d81-97eb-66e5b054c308",
-                                                "ResourceGroup": "rv-dev-cspreport",
-                                                "Name": "rv-dev-cspreport-ai",
-                                                "ResourceId": "[variables('applicationInsightsId')]"
-                                            }
-                                        },
-                                        {
-                                            "name": "Query",
-                                            "value": "customEvents\n| extend DocumentUrlFull = parse_url(tostring( customDimensions.DocumentUrl))\n| summarize itemCount=sum(itemCount) by url=strcat(DocumentUrlFull[\"Host\"], \"\",DocumentUrlFull[\"Path\"])\n"
-                                        },
-                                        {
-                                            "name": "TimeRange",
-                                            "value": "P7D"
-                                        },
-                                        {
-                                            "name": "Version",
-                                            "value": "1.0"
-                                        },
-                                        {
-                                            "name": "PartId",
-                                            "value": "5f64019f-b770-432e-b1ef-424374ca6af9"
-                                        },
-                                        {
-                                            "name": "PartTitle",
-                                            "value": "Analytics"
-                                        },
-                                        {
-                                            "name": "PartSubTitle",
-                                            "value": "rv-dev-cspreport-ai"
-                                        },
-                                        {
-                                            "name": "resourceTypeMode",
-                                            "value": "components"
-                                        },
-                                        {
-                                            "name": "ControlType",
-                                            "value": "AnalyticsGrid"
-                                        },
-                                        {
-                                            "name": "Dimensions",
-                                            "isOptional": true
-                                        },
-                                        {
-                                            "name": "DashboardId",
-                                            "isOptional": true
-                                        },
-                                        {
-                                            "name": "SpecificChart",
-                                            "isOptional": true
-                                        }
-                                    ],
-                                    "type": "Extension/AppInsightsExtension/PartType/AnalyticsPart",
-                                    "settings": {},
-                                    "asset": {}
-                                }
-                            }
-                        }
-                    }
-                },
-                "metadata": {
-                    "model": {}
-                }
             }
         }
     ]

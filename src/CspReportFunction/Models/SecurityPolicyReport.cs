@@ -78,6 +78,7 @@ namespace CspReportFunction.Models
         [JsonPropertyName("original-policy")]
         public string OriginalPolicy { get; set; } = string.Empty;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         [JsonPropertyName("disposition")]
         public SecurityPolicyViolationEventDisposition Disposition { get; set; }
 

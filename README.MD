@@ -3,12 +3,13 @@
 This service implements an endpoint to store CspReports ([Mozilla Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) in Azure Application Insights on an self managed Environment.
 
 ## Technologies
+
 This is build using the following technologies/Stack
 
-- Application Insights
-- Azure Functions
-- Azure
-- .NET Core 3.1
+-   Application Insights
+-   Azure Functions
+-   Azure
+-   .NET 6
 
 # Deployment
 
