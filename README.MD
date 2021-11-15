@@ -7,12 +7,13 @@ This service implements an endpoint to store CspReports ([Mozilla Documentation]
 ![Build .NET core App](https://github.com/royvou/CspReportFunction/workflows/Build%20.NET%20core%20App/badge.svg)
 
 ## Technologies
+
 This is build using the following technologies/Stack
 
-- Application Insights
-- Azure Functions
-- Azure
-- .NET Core 3.1
+-   Application Insights
+-   Azure Functions
+-   Azure
+-   .NET 6
 
 # Deployment
 

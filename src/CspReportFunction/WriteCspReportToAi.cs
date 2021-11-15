@@ -33,15 +33,16 @@ namespace CspReportFunction
             //Load
             var parsedResponse = await ParseResponse(req).ConfigureAwait(false);
             //Validate
-            if (ValidResponse(parsedResponse))
+            if (!ValidResponse(parsedResponse))
             {
-                //Save
-                SaveResponse(_telemetryClient, parsedResponse);
-
-                return new AcceptedResult();
+                return new BadRequestResult();
             }
 
-            return new BadRequestResult();
+            //Save
+            SaveResponse(_telemetryClient, parsedResponse);
+
+            return new AcceptedResult();
+
         }
 
         private static void SaveResponse(TelemetryClient telemetryClient, SecurityPolicyReport parsedResponse)
@@ -71,12 +72,12 @@ namespace CspReportFunction
 
         }
 
-        private static bool ValidResponse(SecurityPolicyReport parsedResponse)
+        private static bool ValidResponse(SecurityPolicyReport? parsedResponse)
         {
-            return parsedResponse.CspReport != default;
+            return parsedResponse?.CspReport != default;
         }
 
-        private static ValueTask<SecurityPolicyReport> ParseResponse(HttpRequest req)
+        private static ValueTask<SecurityPolicyReport?> ParseResponse(HttpRequest req)
             => JsonSerializer.DeserializeAsync<SecurityPolicyReport>(req.Body);
     }
 }
